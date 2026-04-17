@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Jam Weton Jawa</title>
+
+<style>
+
+body{
+    background:#111;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    font-family:Arial;
+}
+
+.container{
+    display:flex;
+    gap:10px;
+}
+
+.box{
+    border:3px solid purple;
+    padding:20px;
+    min-width:110px;
+    text-align:center;
+    font-size:22px;
+    color:#b300ff;
+    background:#000;
+    border-radius:10px;
+    animation:blink 1.5s infinite;
+}
+
+@keyframes blink{
+    0%{opacity:1;}
+    50%{opacity:0.3;}
+    100%{opacity:1;}
+}
+
+.title{
+    font-size:14px;
+    color:#d580ff;
+}
+
+.value{
+    font-size:22px;
+    margin-top:5px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="box">
+<div class="title">HARI</div>
+<div class="value" id="hari"></div>
+</div>
+
+<div class="box">
+<div class="title">WETON</div>
+<div class="value" id="weton"></div>
+</div>
+
+<div class="box">
+<div class="title">TANGGAL</div>
+<div class="value" id="tanggal"></div>
+</div>
+
+<div class="box">
+<div class="title">BULAN</div>
+<div class="value" id="bulan"></div>
+</div>
+
+<div class="box">
+<div class="title">JAM</div>
+<div class="value" id="jam"></div>
+</div>
+
+<div class="box">
+<div class="title">TAHUN</div>
+<div class="value" id="tahun"></div>
+</div>
+
+</div>
+
+<script>
+
+function updateWaktu(){
+
+let now = new Date();
+
+let hariList=["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+let bulanList=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+let pasaran=["Legi","Pahing","Pon","Wage","Kliwon"];
+
+let hari=hariList[now.getDay()];
+let tanggal=now.getDate();
+let bulan=bulanList[now.getMonth()];
+let tahun=now.getFullYear();
+
+let jam=String(now.getHours()).padStart(2,'0');
+let menit=String(now.getMinutes()).padStart(2,'0');
+let detik=String(now.getSeconds()).padStart(2,'0');
+
+let jamDigital=jam+":"+menit+":"+detik;
+
+// hitung weton jawa
+let base=new Date(1970,0,1);
+let selisih=Math.floor((now-base)/86400000);
+let weton=pasaran[(selisih+4)%5];
+
+document.getElementById("hari").innerHTML=hari;
+document.getElementById("weton").innerHTML=weton;
+document.getElementById("tanggal").innerHTML=tanggal;
+document.getElementById("bulan").innerHTML=bulan;
+document.getElementById("jam").innerHTML=jamDigital;
+document.getElementById("tahun").innerHTML=tahun;
+
+}
+
+setInterval(updateWaktu,1000);
+updateWaktu();
+
+</script>
+
+</body>
+</html>
